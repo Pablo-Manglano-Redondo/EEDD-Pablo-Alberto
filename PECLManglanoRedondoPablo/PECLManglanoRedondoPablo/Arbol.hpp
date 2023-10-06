@@ -6,7 +6,7 @@ class Arbol
 public:
     Arbol();
     ~Arbol();
-
+    hola
 };
 
 #endif // ARBOL_HPP
