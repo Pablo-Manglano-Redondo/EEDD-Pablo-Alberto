@@ -3,6 +3,12 @@
 
 class Pedido
 {
+private:
+    int id;
+    int numSeguimiento;
+    std::string dniCliente;
+    bool urgente;
+    
 public:
     Pedido();
     ~Pedido();

@@ -3,10 +3,14 @@
 
 class NodoPila
 {
-public:
-    NodoPila();
-    ~NodoPila();
+private:
+    Pedido pedido;
+    NodoPila* siguiente;
 
+public:
+    NodoPila(Pedido _pedido); // Constructor
+    // Métodos Getters y Setters
 };
 
 #endif // NODOPILA_HPP
+
