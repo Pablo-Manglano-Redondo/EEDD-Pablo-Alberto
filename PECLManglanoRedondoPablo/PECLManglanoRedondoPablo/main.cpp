@@ -1,94 +1,86 @@
 #include <iostream>
-#include <stack>
-#include <queue>
-#include <vector>
-#include <string>
+#include <cstdlib> // Para usar la función std::system("CLS") en sistemas Windows
 
-using namespace std;
+void mostrarMenu() {
+    std::cout << "========== Menú ==========" << std::endl;
+    std::cout << "A. Generar 12 pedidos aleatorios" << std::endl;
+    std::cout << "B. Mostrar pedidos en la pila" << std::endl;
+    std::cout << "C. Borrar pedidos en la pila" << std::endl;
+    std::cout << "D. Mover pedidos a las estaciones" << std::endl;
+    std::cout << "E. Mostrar pedidos en las estaciones" << std::endl;
+    std::cout << "F. Borrar pedidos en las estaciones" << std::endl;
+    std::cout << "G. Mover pedidos a las listas" << std::endl;
+    std::cout << "H. Mostrar pedidos en la Lista Estándar" << std::endl;
+    std::cout << "I. Mostrar pedidos en la Lista Urgente" << std::endl;
+    std::cout << "J. Buscar pedidos" << std::endl;
+    std::cout << "K. Reiniciar programa" << std::endl;
+    std::cout << "X. Salir" << std::endl;
+    std::cout << "==========================" << std::endl;
+    std::cout << "Seleccione una opción: ";
+}
 
-struct Pedido {
-    int id;
-    string tipo;
-    // Puedes agregar más atributos según tus necesidades
-};
+char obtenerOpcion() {
+    char opcion;
+    std::cin >> opcion;
+    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Limpiar el buffer del teclado
+    return std::toupper(opcion);
+}
 
 int main() {
-    stack<Pedido> pilaPedidos;
-    queue<Pedido> estacionA, estacionB, estacionC, estacionD;
-    vector<Pedido> listaEstándar, listaUrgente;
+    Gestor gestor; // Instancia de la clase Gestor
 
     char opcion;
-
-    cout << "-------------------------------------------------\n";
-    cout << "Pedidos en la pila:\n";
-    cout << "Pedidos en las colas:\n";
-    cout << "Pedidos en las listas:\n";
-    cout << "Pedidos en el árbol:\n";
-    cout << "-------------------------------------------------\n";
-
     do {
-        cout << "Opciones:\n"
-             << "A: Generar y almacenar pedidos aleatorios\n"
-             << "B: Mostrar pedidos almacenados en la pila\n"
-             << "C: Borrar pedidos almacenados en la pila\n"
-             << "D: Extraer pedidos de la pila y almacenar en estaciones\n"
-             << "E: Mostrar pedidos en estaciones A y B\n"
-             << "F: Mostrar pedidos en estaciones C y D\n"
-             << "G: Borrar pedidos en las estaciones\n"
-             << "H: Extraer pedidos de las estaciones y almacenar en listas\n"
-             << "I: Mostrar pedidos en Lista Estándar\n"
-             << "J: Mostrar pedidos en Lista Urgente\n"
-             << "K: Mostrar pedidos estándar de mayor prioridad y urgente de menor prioridad\n"
-             << "L: Reiniciar el programa\n"
-             << "X: Salir del programa\n";
-
-        cout << "Elige una opción: ";
-        cin >> opcion;
+        mostrarMenu();
+        opcion = obtenerOpcion();
 
         switch (opcion) {
             case 'A':
-                // Implementa la opción A
+                gestor.generarPedidosAleatorios();
                 break;
             case 'B':
-                // Implementa la opción B
+                gestor.mostrarPedidosEnPila();
                 break;
             case 'C':
-                // Implementa la opción C
+                gestor.borrarPedidosEnPila();
                 break;
             case 'D':
-                // Implementa la opción D
+                gestor.moverPedidosAPilas();
                 break;
             case 'E':
-                // Implementa la opción E
+                gestor.mostrarPedidosEnEstaciones();
                 break;
             case 'F':
-                // Implementa la opción F
+                gestor.borrarPedidosEnEstaciones();
                 break;
             case 'G':
-                // Implementa la opción G
+                gestor.moverPedidosAListas();
                 break;
             case 'H':
-                // Implementa la opción H
+                gestor.mostrarPedidosEnListaEstándar();
                 break;
             case 'I':
-                // Implementa la opción I
+                gestor.mostrarPedidosEnListaUrgente();
                 break;
             case 'J':
-                // Implementa la opción J
+                gestor.buscarPedidos();
                 break;
             case 'K':
-                // Implementa la opción K
-                break;
-            case 'L':
-                // Implementa la opción L
+                gestor.reiniciarPrograma();
                 break;
             case 'X':
-                cout << "Saliendo del programa. Hasta luego.\n";
+                std::cout << "Saliendo del programa. ¡Hasta luego!" << std::endl;
                 break;
             default:
-                cout << "Opción no válida. Por favor, elige una opción válida.\n";
-                break;
+                std::cout << "Opción no válida. Por favor, seleccione una opción válida." << std::endl;
         }
+
+        // Espera hasta que el usuario presione Enter para continuar
+        std::cout << "Presione Enter para continuar...";
+        std::cin.ignore(); // Espera hasta que el usuario presione Enter
+
+        // Limpia la consola (solo en sistemas Windows)
+        std::system("CLS");
 
     } while (opcion != 'X');
 

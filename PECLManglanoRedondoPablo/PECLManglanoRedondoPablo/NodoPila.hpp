@@ -1,17 +1,14 @@
 #ifndef NODOPILA_HPP
 #define NODOPILA_HPP
 
-class NodoPila
-{
-private:
+#include "Pedido.hpp"
+
+class NodoPila {
+public:
     Pedido pedido;
     NodoPila* siguiente;
-    friend class Pila;
 
-public:
-    NodoPila(Pedido _pedido); // Constructor
-    // Métodos Getters y Setters
+    NodoPila(const Pedido& p) : pedido(p), siguiente(nullptr) {}
 };
 
 #endif // NODOPILA_HPP
-

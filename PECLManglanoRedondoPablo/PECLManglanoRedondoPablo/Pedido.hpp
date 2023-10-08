@@ -1,18 +1,14 @@
 #ifndef PEDIDO_HPP
 #define PEDIDO_HPP
 
-class Pedido
-{
-private:
-    int id;
-    int numSeguimiento;
-    std::string dniCliente;
-    bool urgente;
-    
+class Pedido {
 public:
-    Pedido();
-    ~Pedido();
+    int id;
+    int numeroSeguimiento;
+    int dniCliente;
+    bool esUrgente;
 
+    Pedido();
 };
 
 #endif // PEDIDO_HPP
