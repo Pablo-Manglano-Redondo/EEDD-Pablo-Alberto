@@ -6,6 +6,7 @@ class NodoPila
 private:
     Pedido pedido;
     NodoPila* siguiente;
+    friend class Pila;
 
 public:
     NodoPila(Pedido _pedido); // Constructor
