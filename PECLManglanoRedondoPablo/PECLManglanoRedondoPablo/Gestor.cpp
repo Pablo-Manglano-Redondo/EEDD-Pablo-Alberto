@@ -2,6 +2,11 @@
 #include <iostream>
 #include <cstdlib> // Para generar números aleatorios
 
+#include "Pila.hpp"
+#include "Cola.hpp"
+#include "Lista.hpp"
+
+
 // Constructor
 Gestor::Gestor() {
     // Inicializa las estructuras de datos y realiza otras inicializaciones necesarias
@@ -12,15 +17,32 @@ Gestor::~Gestor() {
     // Realiza operaciones de limpieza y libera memoria si es necesario
 }
 
+// Comprueba si la pila está llena
+bool estaLlena() {
+    return cima == nullptr;
+}
+
+// Quita el pedido de la cima de la pila
+void pop(Pedido& pedido) {
+    if (!estaVacia()) {
+        Pedido* temp = cima;
+        pedido = temp->pedido;
+        cima = temp->siguiente;
+        delete temp;
+    }
+}
+
 void Gestor::generarPedidosAleatorios() {
     // Lógica para generar 12 pedidos aleatorios y almacenarlos en la pila
-    for (int i = 0; i < 12; ++i) {
+    if (!pila.estaLlena()) {
+        for (int i = 0; i < 12; ++i) {
         Pedido nuevoPedido;
         nuevoPedido.id = rand() % 100 + 1; // Número de pedido único entre 1 y 100
         nuevoPedido.numeroSeguimiento = rand() % 499 + 1; // Número de seguimiento entre 1 y 499
         nuevoPedido.dniCliente = rand() % 1000000000 + 1; // DNI del cliente aleatorio
         nuevoPedido.esUrgente = rand() % 2 == 0; // Aleatoriamente urgente o estándar
         pila.push(nuevoPedido);
+        }
     }
 }
 
@@ -52,7 +74,7 @@ void Gestor::moverPedidosAPilas() {
         tempPila.pop(temp);
 
         if (temp.esUrgente) {
-            if (estacionA.estaVacia() || estacionA.frente->pedido.id >= temp.id) {
+            if (estacionA.estaVacia() || estacionA.getFrente()->pedido.id >= temp.id) {
                 estacionA.encolar(temp);
             } else {
                 estacionB.encolar(temp);

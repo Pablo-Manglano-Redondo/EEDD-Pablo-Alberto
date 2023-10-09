@@ -11,6 +11,9 @@ public:
     Gestor();
     ~Gestor();
 
+    Pila pila;
+    Cola estacionA;
+    Cola estacionB;
     void generarPedidosAleatorios();
     void mostrarPedidosEnPila();
     void borrarPedidosEnPila();
