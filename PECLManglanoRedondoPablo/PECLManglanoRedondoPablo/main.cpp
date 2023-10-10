@@ -23,7 +23,7 @@ void mostrarMenu() {
 char obtenerOpcion() {
     char opcion;
     cin >> opcion;
-    std::cin.ignore(std::numeric_limits<std::streamsize>::max(), '\n'); // Limpiar el buffer del teclado
+    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer del teclado
     return toupper(opcion);
 }
 

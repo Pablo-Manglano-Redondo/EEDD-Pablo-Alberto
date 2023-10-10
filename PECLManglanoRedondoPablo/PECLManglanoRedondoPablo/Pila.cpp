@@ -1,38 +1,60 @@
 #include "Pila.hpp"
 
+using namespace std;
+
 // Constructor de la Pila (si es necesario)
-Pila::Pila() {
-    cima = nullptr;
+Pila::Pila()
+{
+    ultimo = NULL;
+    longitud = 0;
 }
-
-// Destructor de la Pila (si es necesario)
-Pila::~Pila() {
-    while (!estaVacia()) {
-        Pedido temp;
-        pop(temp);
+void Pila::insertar(int v)
+{
+    pnodoPila nuevo;
+    nuevo = new NodoPila(v, ultimo);
+    ultimo = nuevo;
+    longitud++;
+}
+int Pila::extraer()
+{
+    pnodoPila nodo;
+    int v;
+    if(!ultimo)
+        return 0;
+    nodo = ultimo;
+    ultimo = nodo->siguiente;
+    v = nodo->valor;
+    longitud--;
+    delete nodo;
+    return v;
+}
+int Pila::cima()
+{
+    pnodoPila nodo;
+    if (!ultimo)
+        return 0;
+    return ultimo->valor;
+}
+void Pila::mostrar()
+{
+    pnodoPila aux = ultimo;
+    cout << "\tEl contenido de la pila es: ";
+    while(aux) {
+        cout << "-> " << aux->valor;
+        aux = aux->siguiente;
     }
+    cout << endl;
 }
-
-// Método para agregar un pedido a la pila
-void Pila::push(const Pedido& p) {
-    NodoPila* nuevoNodo = new NodoPila(p);
-    nuevoNodo->siguiente = cima;
-    cima = nuevoNodo;
+int Pila::getLongitud()
+{
+    return this->longitud;
 }
-
-// Método para quitar un pedido de la pila
-bool Pila::pop(Pedido& p) {
-    if (estaVacia()) {
-        return false; // La pila está vacía
+Pila::~Pila()
+{
+    pnodoPila aux;
+    while(ultimo) {
+        aux = ultimo;
+        ultimo = ultimo->siguiente;
+        delete aux;
     }
-    NodoPila* temp = cima;
-    p = temp->pedido;
-    cima = temp->siguiente;
-    delete temp;
-    return true;
-}
-
-// Método para verificar si la pila está vacía
-bool Pila::estaVacia() {
-    return cima == nullptr;
 }

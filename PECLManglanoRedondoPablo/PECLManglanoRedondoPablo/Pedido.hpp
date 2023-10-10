@@ -3,12 +3,8 @@
 
 class Pedido {
 public:
-    int id;
-    int numeroSeguimiento;
-    int dniCliente;
-    bool esUrgente;
-
     Pedido();
+    ~Pedido();
 };
 
 #endif // PEDIDO_HPP

@@ -5,16 +5,19 @@
 
 class Pila
 {
-private:
-    NodoPila* cima;
-    
 public:
     Pila(); // Constructor por defecto
     ~Pila();
-    void push(int id, int numeroSeguimiento, int DNI, bool urgente);
-    bool pop(int& id, int& numeroSeguimiento, int& DNI, bool& urgente);
-    bool estaVacia() const;
-    bool estaLlena() const { return pila.estaLlena(); }
+    void insertar(int v);
+    int extraer();
+    int cima();
+    void mostrar();
+    int getLongitud();
+    
+private:
+    pnodoPila ultimo;
+    int longitud;
+    
 };
 
 #endif // PILA_HPP

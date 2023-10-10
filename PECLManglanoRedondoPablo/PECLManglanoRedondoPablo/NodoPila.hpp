@@ -1,14 +1,20 @@
 #ifndef NODOPILA_HPP
 #define NODOPILA_HPP
 
-#include "Pedido.hpp"
+#include <iostream>
 
-class NodoPila {
+class NodoPila
+{
 public:
-    Pedido pedido;
-    NodoPila* siguiente;
+    NodoPila(int v, NodoPila* sig = NULL);
+    ~NodoPila();
 
-    NodoPila(const Pedido& p) : pedido(p), siguiente(nullptr) {}
+private:
+    int valor;
+    NodoPila* siguiente;
+    friend class Pila;
 };
+
+typedef NodoPila* pnodoPila;
 
 #endif // NODOPILA_HPP
