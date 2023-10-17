@@ -1,86 +1,111 @@
 #include <iostream>
-#include <cstdlib> // Para usar la función std::system("CLS") en sistemas Windows
+#include <vector>
 
-using namespace std;
+#include "Gestor.hpp"
 
-void mostrarMenu() {
-    cout << "========== Menú ==========" << endl;
-    cout << "A. Generar 12 pedidos aleatorios" << endl;
-    cout << "B. Mostrar pedidos en la pila" << endl;
-    cout << "C. Borrar pedidos en la pila" << endl;
-    cout << "D. Mover pedidos a las estaciones" << endl;
-    cout << "E. Mostrar pedidos en las estaciones" << endl;
-    cout << "F. Borrar pedidos en las estaciones" << endl;
-    cout << "G. Mover pedidos a las listas" << endl;
-    cout << "H. Mostrar pedidos en la Lista Estándar" << endl;
-    cout << "I. Mostrar pedidos en la Lista Urgente" << endl;
-    cout << "J. Buscar pedidos" << endl;
-    cout << "K. Reiniciar programa" << endl;
-    cout << "==========================" << endl;
-    cout << "Seleccione una opción: ";
-}
+int main(int argc, char** argv) {
+  Gestor gestor;
+  char opcion;
 
-char obtenerOpcion() {
-    char opcion;
+  do {
+
+    cout << "\n\t------------------------------------------------------------------------\n";
+    cout << "\tPedidos en la pila -> " << gestor.PedidosEnPila()
+         << "\n\tPedidos en las colas:\n \t\tSala A-> " << gestor.PedidosEnSalaA()
+         << "\tSala B-> " << gestor.PedidosEnSalaB() << "\tSala C-> " << gestor.PedidosEnSalaC()
+         << "\tSala D-> " << gestor.PedidosEnSalaD()
+         << " \n\tPedidos en las listas:\n \t\tEstandar-> "
+         << gestor.PedidosEnListaEstandar() << "\tUrgentes-> " << gestor.PedidosEnListaUrgentes()
+         << "\n\t----------------------------------------------------------------------\n\n";
+
+    cout << "\tA. Generar 12 Pedidos de forma aleatoria y almacenarlos en la "
+            "Pila.\n";
+    cout << "\tB. Consultar todos los Pedidos generados en la Pila (pendientes "
+            "de entrar en las salas).\n";
+    cout << "\tC. Borrar los Pedidos generados en la pila.\n";
+    cout << "\tD. Simular llegada de los Pedidos en las colas.\n";
+    cout << "\tE. Consultar los Pedidos de las salas A y B.\n";
+    cout << "\tF. Consultar los Pedidos de las salas C y D.\n";
+    cout << "\tG. Borrar los todos los Pedidos de las salas.\n";
+    cout << "\tH. Simular la entrada de los Pedidos a las listas.\n";
+    cout << "\tI. Mostrar los Pedidos que hay en la Lista Estándar.\n";
+    cout << "\tJ. Mostrar los Pedidos que hay en la Lista Urgente.\n";
+    cout << "\tK. Buscar en las listas y mostrar los siguientes 2 pedidos:\n";
+    cout << "\t\t* El pedido estándar de mayor prioridad.\n";
+    cout << "\t\t* El pedido urgente de menor prioridad.\n";
+    cout << "\tL. Reiniciar el programa.\n\n";
+
+    cout << "\tIndique la opcion deseada: ";
     cin >> opcion;
-    cin.ignore(numeric_limits<streamsize>::max(), '\n'); // Limpiar el buffer del teclado
-    return toupper(opcion);
-}
+    opcion = toupper(opcion);
 
-int main() {
-    Gestor gestor; // Instancia de la clase Gestor
+    switch(opcion) {
 
-    char opcion;
-    do {
-        mostrarMenu();
-        opcion = obtenerOpcion();
+    case 'A':
+      gestor.generar12Pedidos();
+      break;
+    case 'B':
+      gestor.muestraPedidos();
+      break;
+    case 'C':
+      gestor.borrarPedidosPila();
+      break;
+    case 'D':
+      gestor.encolarPedidos();
+      break;
+    case 'E':
+      gestor.muestraPedidosSalasAyB();
+      break;
+    case 'F':
+      gestor.muestraPedidosSalasCyD();
+      break;
+    case 'G':
+      gestor.borrarPedidosColas();
+      break;
+    case 'H':
+      gestor.enlistarPedidos();
+      break;
+    case 'I':
+      gestor.muestraPedidosEstandar();
+      break;
+    case 'J':
+      gestor.muestraPedidosUrgentes();
+      break;
+    case 'K':
+      gestor.buscarPedidos();
+      break;
+    case 'L':
+      gestor.reiniciar();
+      break;
+    case 'M':
+        //...;
+        break;
+    case 'N':
+        //...;
+        break;
+    case 'O':
+        //...;
+        break;
+    case 'P':
+        //...;
+        break;
+    case 'Q':
+        //...;
+        break;
+    case 'R':
+        //...;
+        break;
+    case 'T':
+        //...;
+        break;
+    case 'U':
+        //...;
+        break;
+    default:
+      cout << "Opcion incorrecta!\n\n";
+      break;
+    }
+  } while(opcion != 'S');
 
-        switch (opcion) {
-            case 'A':
-                gestor.generarPedidosAleatorios();
-                break;
-            case 'B':
-                gestor.mostrarPedidosEnPila();
-                break;
-            case 'C':
-                gestor.borrarPedidosEnPila();
-                break;
-            case 'D':
-                gestor.moverPedidosAPilas();
-                break;
-            case 'E':
-                gestor.mostrarPedidosEnEstaciones();
-                break;
-            case 'F':
-                gestor.borrarPedidosEnEstaciones();
-                break;
-            case 'G':
-                gestor.moverPedidosAListas();
-                break;
-            case 'H':
-                gestor.mostrarPedidosEnListaEstándar();
-                break;
-            case 'I':
-                gestor.mostrarPedidosEnListaUrgente();
-                break;
-            case 'J':
-                gestor.buscarPedidos();
-                break;
-            case 'K':
-                cout << "Saliendo del programa. ¡Hasta luego!" << endl;
-                break;
-            default:
-                cout << "Opción no válida. Por favor, seleccione una opción válida." << endl;
-        }
-
-        // Espera hasta que el usuario presione Enter para continuar
-        cout << "Presione Enter para continuar...";
-        cin.ignore(); // Espera hasta que el usuario presione Enter
-
-        // Limpia la consola (solo en sistemas Windows)
-        system("CLS");
-
-    } while (opcion != 'X');
-
-    return 0;
+  return 0;
 }

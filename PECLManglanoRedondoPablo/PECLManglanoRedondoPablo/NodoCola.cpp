@@ -1,12 +1,11 @@
 #include "NodoCola.hpp"
 
-NodoCola::NodoCola(int v, NodoCola* sig)
-{
-    valor = v;
-    siguiente = sig;
+NodoCola::NodoCola(const Pedido& pedido) {
+  pedido_ = pedido;
+  siguiente_ = nullptr;
 }
 
-NodoCola::~NodoCola()
-{
+std::ostream& operator<<(std::ostream& os, const NodoCola& nodo_cola) {
+  os << "Pedido: " << nodo_cola.pedido_;
+  return os;
 }
-

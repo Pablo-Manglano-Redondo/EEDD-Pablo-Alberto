@@ -1,22 +1,16 @@
-#ifndef NODOCOLA_HPP
-#define NODOCOLA_HPP
+#ifndef NODO_COLA_HPP
+#define NODO_COLA_HPP
 
 #include <iostream>
-using namespace std;
 
-class NodoCola
-{
+class NodoCola {
 public:
-    NodoCola(int v, NodoCola* sig = NULL);
-    ~NodoCola();
-    
-private:
-    int valor;
-    NodoCola* siguiente;
-    
-    friend class Cola;
+  NodoCola(const Pedido& pedido);
+
+  Pedido pedido_;
+  NodoCola* siguiente_;
 };
 
-typedef NodoCola* pnodoCola;
+std::ostream& operator<<(std::ostream& os, const NodoCola& nodo_cola);
 
-#endif // NODOCOLA_HPP
+#endif

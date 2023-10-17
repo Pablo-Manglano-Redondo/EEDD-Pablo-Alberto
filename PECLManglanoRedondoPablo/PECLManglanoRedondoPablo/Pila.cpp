@@ -1,60 +1,64 @@
 #include "Pila.hpp"
 
-using namespace std;
-
-// Constructor de la Pila (si es necesario)
-Pila::Pila()
+Pila::Pila() // Constructor por defecto
 {
     ultimo = NULL;
     longitud = 0;
 }
-void Pila::insertar(int v)
+
+Pila::~Pila() // Destructor
 {
-    pnodoPila nuevo;
-    nuevo = new NodoPila(v, ultimo);
+    while (!estaVacia()) {
+        extraer();
+    }
+}
+
+void Pila::insertar(const Pedido& pedido) // Inserta un elemento en la pila
+{
+    pnodoPila nuevo = new NodoPila(pedido);
+    nuevo->sig = ultimo;
     ultimo = nuevo;
     longitud++;
 }
-int Pila::extraer()
+
+
+int Pila::extraer() // Extrae el elemento superior de la pila
 {
-    pnodoPila nodo;
-    int v;
-    if(!ultimo)
-        return 0;
-    nodo = ultimo;
-    ultimo = nodo->siguiente;
-    v = nodo->valor;
+    if (estaVacia()) {
+        throw std::out_of_range("La pila está vacía");
+    }
+    int v = ultimo->v;
+    pnodoPila aux = ultimo;
+    ultimo = ultimo->sig;
+    delete aux;
     longitud--;
-    delete nodo;
     return v;
 }
-int Pila::cima()
+
+int Pila::cima() // Devuelve el elemento superior de la pila
 {
-    pnodoPila nodo;
-    if (!ultimo)
-        return 0;
-    return ultimo->valor;
+    if (estaVacia()) {
+        throw std::out_of_range("La pila está vacía");
+    }
+    return ultimo->v;
 }
-void Pila::mostrar()
+
+void Pila::mostrar() // Muestra la pila
 {
+    if (estaVacia()) {
+        std::cout << "La pila está vacía" << std::endl;
+        return;
+    }
     pnodoPila aux = ultimo;
-    cout << "\tEl contenido de la pila es: ";
-    while(aux) {
-        cout << "-> " << aux->valor;
-        aux = aux->siguiente;
+    while (aux != NULL) {
+        std::cout << aux->v << " ";
+        aux = aux->sig;
     }
-    cout << endl;
+    std::cout << std::endl;
 }
-int Pila::getLongitud()
+
+int Pila::getLongitud() // Devuelve la longitud de la pila
 {
-    return this->longitud;
+    return longitud;
 }
-Pila::~Pila()
-{
-    pnodoPila aux;
-    while(ultimo) {
-        aux = ultimo;
-        ultimo = ultimo->siguiente;
-        delete aux;
-    }
-}
+

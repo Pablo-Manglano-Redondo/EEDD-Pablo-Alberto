@@ -2,22 +2,22 @@
 #define PILA_HPP
 
 #include "NodoPila.hpp"
+#include <iterator>
 
 class Pila
 {
 public:
     Pila(); // Constructor por defecto
     ~Pila();
-    void insertar(int v);
+    void insertar(const Pedido& pedido);
     int extraer();
     int cima();
     void mostrar();
     int getLongitud();
-    
+
 private:
     pnodoPila ultimo;
     int longitud;
-    
 };
 
 #endif // PILA_HPP

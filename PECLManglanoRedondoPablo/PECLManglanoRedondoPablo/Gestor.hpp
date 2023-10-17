@@ -1,30 +1,33 @@
 #ifndef GESTOR_HPP
 #define GESTOR_HPP
 
-#include "Pedido.hpp"
 #include "Pila.hpp"
+#include "Pedido.hpp"
 #include "Cola.hpp"
-#include "Lista.hpp"
+#include <vector>
 
 class Gestor {
 public:
-    Gestor();
-    ~Gestor();
+  Gestor();
 
-    Pila pila;
-    Cola estacionA;
-    Cola estacionB;
-    void generarPedidosAleatorios();
-    void mostrarPedidosEnPila();
-    void borrarPedidosEnPila();
-    void moverPedidosAPilas();
-    void mostrarPedidosEnEstaciones();
-    void borrarPedidosEnEstaciones();
-    void moverPedidosAListas();
-    void mostrarPedidosEnListaEstándar();
-    void mostrarPedidosEnListaUrgente();
-    void buscarPedidos();
-    void reiniciarPrograma();
+  void generar12Pedidos();
+  void muestraPedidos();
+  void borrarPedidosPila();
+  void encolarPedidos();
+  void muestraPedidosSalasAyB();
+  void muestraPedidosSalasCyD();
+  void borrarPedidosColas();
+  void enlistarPedidos();
+  void muestraPedidosEstandar();
+  void muestraPedidosUrgentes();
+  void buscarPedidos();
+  void reiniciar();
+
+private:
+  Pila<Pedido> pila;
+  std::vector<Cola<Pedido>> colas_;
+  std::vector<Pedido> lista_estandar_;
+  std::vector<Pedido> lista_urgente_;
 };
 
-#endif // GESTOR_HPP
+#endif

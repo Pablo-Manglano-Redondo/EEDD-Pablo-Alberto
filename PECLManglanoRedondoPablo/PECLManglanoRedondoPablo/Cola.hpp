@@ -1,22 +1,26 @@
 #ifndef COLA_HPP
 #define COLA_HPP
 
-#include "NodoCola.hpp"
+#include <iostream>
 
-class Cola
-{
+class Cola {
 public:
-    Cola();
-    ~Cola();
+  Cola();
 
-    void insertar(int v);
-    int eliminar();
-    void mostrar();
-    int verPrimero();
-    
+  bool vacia() const;
+  void push(const Pedido& pedido);
+  Pedido pop();
+
 private:
-    pnodoCola primero, ultimo;
-    int longitud;
+  struct Nodo {
+    Pedido pedido_;
+    Nodo* siguiente_;
+  };
+
+  Nodo* primero_;
+  Nodo* ultimo_;
 };
 
-#endif // COLA_HPP
+std::ostream& operator<<(std::ostream& os, const Cola& cola);
+
+#endif
