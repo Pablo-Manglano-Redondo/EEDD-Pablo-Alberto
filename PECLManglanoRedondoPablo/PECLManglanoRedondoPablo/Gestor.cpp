@@ -1,6 +1,6 @@
 #include "Gestor.hpp"
 
-Pila pila_;
+Pila<Pedido> pila_;
 
 Gestor::Gestor() {
   pila_ = Pila<Pedido>();

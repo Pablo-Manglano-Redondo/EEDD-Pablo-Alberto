@@ -4,6 +4,7 @@
 #include "NodoPila.hpp"
 #include <iterator>
 
+template <typename T>
 class Pila
 {
 public:
