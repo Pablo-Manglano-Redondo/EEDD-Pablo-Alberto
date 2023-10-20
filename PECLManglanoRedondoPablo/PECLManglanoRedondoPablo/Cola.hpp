@@ -1,12 +1,9 @@
 #ifndef COLA_HPP
 #define COLA_HPP
 
-#include "Pedido.hpp"
 #include "NodoCola.hpp"
-#include <iterator>
 
-class Cola
-{
+class Cola {
 public:
     ~Cola();
     void insertar(const Pedido& elemento);
@@ -19,6 +16,10 @@ private:
     NodoCola* primero;
     NodoCola* ultimo;
     int longitud;
+
+    bool estaVacia() const {
+        return primero == nullptr;
+    }
 };
 
 #endif // COLA_HPP

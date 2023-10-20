@@ -1,12 +1,15 @@
 #ifndef NODOCOLA_HPP
 #define NODOCOLA_HPP
 
-class NodoCola
-{
+#include "Pedido.hpp"
+
+class NodoCola {
 public:
-    NodoCola();
+    NodoCola(const Pedido& elemento);
     ~NodoCola();
 
+    Pedido v;
+    NodoCola* sig;
 };
 
 #endif // NODOCOLA_HPP

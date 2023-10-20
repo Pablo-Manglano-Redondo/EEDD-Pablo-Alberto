@@ -2,6 +2,9 @@
 #define PILA_HPP
 
 #include "NodoPila.hpp"
+#include "Pedido.hpp"
+#include <iostream>
+#include <stdexcept>
 #include <iterator>
 
 template <typename T>

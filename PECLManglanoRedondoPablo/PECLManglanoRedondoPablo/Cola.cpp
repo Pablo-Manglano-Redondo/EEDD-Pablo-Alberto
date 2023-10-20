@@ -9,7 +9,7 @@ Cola::~Cola() // Destructor
 
 void Cola::insertar(const Pedido& elemento) // Inserta un elemento en la cola
 {
-    pnodoCola nuevo = new NodoCola(elemento);
+    NodoCola* nuevo = new NodoCola(elemento);
     if (estaVacia()) {
         primero = nuevo;
         ultimo = nuevo;
@@ -26,7 +26,7 @@ Pedido Cola::extraer() // Extrae el elemento superior de la cola
         throw std::out_of_range("La cola está vacía");
     }
     Pedido v = primero->v;
-    pnodoCola aux = primero;
+    NodoCola* aux = primero;
     primero = primero->sig;
     delete aux;
     longitud--;
@@ -48,7 +48,7 @@ void Cola::mostrar() // Muestra la cola
         std::cout << "La cola está vacía" << std::endl;
         return;
     }
-    pnodoCola aux = primero;
+    NodoCola* aux = primero;
     while (aux != nullptr) {
         std::cout << aux->v << " ";
         aux = aux->sig;

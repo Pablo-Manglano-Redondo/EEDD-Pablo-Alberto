@@ -15,7 +15,7 @@ Pila::~Pila() // Destructor
 
 void Pila::insertar(const Pedido& pedido) // Inserta un elemento en la pila
 {
-    pnodoPila nuevo = new NodoPila(pedido);
+    NodoPila* nuevo = new NodoPila(pedido);
     nuevo->sig = ultimo;
     ultimo = nuevo;
     longitud++;
@@ -28,7 +28,7 @@ int Pila::extraer() // Extrae el elemento superior de la pila
         throw std::out_of_range("La pila está vacía");
     }
     int v = ultimo->v;
-    pnodoPila aux = ultimo;
+    NodoPila* aux = ultimo;
     ultimo = ultimo->sig;
     delete aux;
     longitud--;
@@ -49,7 +49,7 @@ void Pila::mostrar() // Muestra la pila
         std::cout << "La pila está vacía" << std::endl;
         return;
     }
-    pnodoPila aux = ultimo;
+    NodoPila* aux = ultimo;
     while (aux != NULL) {
         std::cout << aux->v << " ";
         aux = aux->sig;
