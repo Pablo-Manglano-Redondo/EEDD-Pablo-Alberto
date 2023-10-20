@@ -9,7 +9,7 @@ int main(int argc, char** argv) {
 
   do {
 
-    cout << "\n\t------------------------------------------------------------------------\n";
+    /*cout << "\n\t------------------------------------------------------------------------\n";
     cout << "\tPedidos en la pila -> " << gestor.PedidosEnPila()
          << "\n\tPedidos en las colas:\n \t\tSala A-> " << gestor.PedidosEnSalaA()
          << "\tSala B-> " << gestor.PedidosEnSalaB() << "\tSala C-> " << gestor.PedidosEnSalaC()
@@ -33,57 +33,58 @@ int main(int argc, char** argv) {
     cout << "\tK. Buscar en las listas y mostrar los siguientes 2 pedidos:\n";
     cout << "\t\t* El pedido estándar de mayor prioridad.\n";
     cout << "\t\t* El pedido urgente de menor prioridad.\n";
-    cout << "\tL. Reiniciar el programa.\n\n";
+    cout << "\tL. Reiniciar el programa.\n\n";*/
 
-    cout << "\tIndique la opcion deseada: ";
-    cin >> opcion;
+    std::cout << "\tIndique la opcion deseada: ";
+    std::cin >> opcion;
     opcion = toupper(opcion);
 
     switch(opcion) {
 
     case 'A':
-      gestor.generar12Pedidos();
+      //gestor.generar12Pedidos();
+      gestor.insertarPedidoCola();
       break;
     case 'B':
-      gestor.muestraPedidos();
+      //gestor.muestraPedidos();
       break;
     case 'C':
-      gestor.borrarPedidosPila();
+      //gestor.borrarPedidosPila();
       break;
     case 'D':
-      gestor.encolarPedidos();
+      //gestor.encolarPedidos();
       break;
     case 'E':
-      gestor.muestraPedidosSalasAyB();
+      //gestor.muestraPedidosSalasAyB();
       break;
     case 'F':
-      gestor.muestraPedidosSalasCyD();
+      //gestor.muestraPedidosSalasCyD();
       break;
     case 'G':
-      gestor.borrarPedidosColas();
+      //gestor.borrarPedidosColas();
       break;
     case 'H':
-      gestor.enlistarPedidos();
+      //gestor.enlistarPedidos();
       break;
     case 'I':
-      gestor.muestraPedidosEstandar();
+      //gestor.muestraPedidosEstandar();
       break;
     case 'J':
-      gestor.muestraPedidosUrgentes();
+      //gestor.muestraPedidosUrgentes();
       break;
     case 'K':
-      gestor.buscarPedidos();
+      //gestor.buscarPedidos();
       break;
-    case 'L':
-      gestor.reiniciar();
+    //case 'L':
+      //gestor.reiniciar();
       break;
-    case 'M':
+    //case 'M':
         //...;
         break;
-    case 'N':
+    //case 'N':
         //...;
         break;
-    case 'O':
+    //case 'O':
         //...;
         break;
     case 'P':
@@ -102,7 +103,7 @@ int main(int argc, char** argv) {
         //...;
         break;
     default:
-      cout << "Opcion incorrecta!\n\n";
+      std::cout << "Opcion incorrecta!\n\n";
       break;
     }
   } while(opcion != 'S');

@@ -8,6 +8,9 @@ Gestor::~Gestor()
 {
 }
 
+// Creamos un pedido
+Pedido pedido1(444,123789,12341,1);
+
 // Creamos dos colas para los pedidos estándar.
 Cola estacionA;
 Cola estacionB;
@@ -16,3 +19,7 @@ Cola estacionB;
 Cola estacionC;
 Cola estacionD;
 
+void Gestor::insertarPedidoCola() {
+    estacionA.insertar(pedido1);
+    std::cout << "hola";
+}

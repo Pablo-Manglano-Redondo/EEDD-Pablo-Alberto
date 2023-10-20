@@ -8,11 +8,9 @@ class Gestor
 public:
     Gestor();
     ~Gestor();
+    void insertarPedidoCola();
 private:
-    Cola estacionA;
-    Cola estacionB;
-    Cola estacionC;
-    Cola estacionD;
+
 };
 
 #endif // GESTOR_HPP

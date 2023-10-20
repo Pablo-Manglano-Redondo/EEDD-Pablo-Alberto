@@ -7,7 +7,6 @@
 #include <stdexcept>
 #include <iterator>
 
-template <typename T>
 class Pila
 {
 public:
@@ -18,9 +17,10 @@ public:
     int cima();
     void mostrar();
     int getLongitud();
+    bool estaVacia();  
 
 private:
-    pnodoPila ultimo;
+    NodoPila* ultimo;
     int longitud;
 };
 

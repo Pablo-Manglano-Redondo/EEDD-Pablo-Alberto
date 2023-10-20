@@ -1,9 +1,3 @@
 #include "NodoPila.hpp"
 
-NodoPila::NodoPila()
-{
-}
-
-NodoPila::~NodoPila()
-{
-}
+NodoPila::NodoPila(const Pedido& p) : pedido(p), sig(nullptr) {}

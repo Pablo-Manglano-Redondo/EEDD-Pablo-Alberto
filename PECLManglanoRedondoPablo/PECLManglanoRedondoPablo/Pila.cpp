@@ -2,7 +2,7 @@
 
 Pila::Pila() // Constructor por defecto
 {
-    ultimo = NULL;
+    ultimo = nullptr;
     longitud = 0;
 }
 
@@ -21,13 +21,12 @@ void Pila::insertar(const Pedido& pedido) // Inserta un elemento en la pila
     longitud++;
 }
 
-
 int Pila::extraer() // Extrae el elemento superior de la pila
 {
     if (estaVacia()) {
         throw std::out_of_range("La pila está vacía");
     }
-    int v = ultimo->v;
+    int v = ultimo->pedido.id_pedido(); // Reemplaza con el método correcto o miembro de Pedido
     NodoPila* aux = ultimo;
     ultimo = ultimo->sig;
     delete aux;
@@ -40,7 +39,7 @@ int Pila::cima() // Devuelve el elemento superior de la pila
     if (estaVacia()) {
         throw std::out_of_range("La pila está vacía");
     }
-    return ultimo->v;
+    return ultimo->pedido.id_pedido(); // Reemplaza con el método correcto o miembro de Pedido
 }
 
 void Pila::mostrar() // Muestra la pila
@@ -50,15 +49,19 @@ void Pila::mostrar() // Muestra la pila
         return;
     }
     NodoPila* aux = ultimo;
-    while (aux != NULL) {
-        std::cout << aux->v << " ";
+    while (aux != nullptr) {
+        // Accede a los miembros de Pedido a través del objeto pedido en NodoPila
+        std::cout << aux->pedido.id_pedido() << " ";
         aux = aux->sig;
     }
     std::cout << std::endl;
+}
+
+bool Pila::estaVacia() {
+    return ultimo == nullptr;
 }
 
 int Pila::getLongitud() // Devuelve la longitud de la pila
 {
     return longitud;
 }
-

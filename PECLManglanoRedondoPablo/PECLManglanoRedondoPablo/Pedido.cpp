@@ -1,7 +1,7 @@
 #include "Pedido.hpp"
 
-Pedido::Pedido(int id_pedido, int dni_cliente, bool urgencia)
-    : id_pedido_(id_pedido), dni_cliente_(dni_cliente), urgencia_(urgencia) {
+Pedido::Pedido(int id_pedido, int num_seguimiento, int dni_cliente, bool urgencia)
+    : id_pedido_(id_pedido), num_seguimiento_(num_seguimiento), dni_cliente_(dni_cliente), urgencia_(urgencia) {
     // Inicializamos los miembros en la lista de inicialización del constructor
 }
 
