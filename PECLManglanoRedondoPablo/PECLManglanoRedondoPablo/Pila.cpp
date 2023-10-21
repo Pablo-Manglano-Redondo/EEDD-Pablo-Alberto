@@ -21,18 +21,19 @@ void Pila::insertar(const Pedido& pedido) // Inserta un elemento en la pila
     longitud++;
 }
 
-int Pila::extraer() // Extrae el elemento superior de la pila
+Pedido Pila::extraer() // Extrae el elemento superior de la pila
 {
     if (estaVacia()) {
         throw std::out_of_range("La pila está vacía");
     }
-    int v = ultimo->pedido.idPedido(); // Reemplaza con el método correcto o miembro de Pedido
+    Pedido pedido = ultimo->pedido; 
     NodoPila* aux = ultimo;
     ultimo = ultimo->sig;
     delete aux;
     longitud--;
-    return v;
+    return pedido;
 }
+
 
 int Pila::cima() // Devuelve el elemento superior de la pila
 {
@@ -69,3 +70,14 @@ int Pila::getLongitud() // Devuelve la longitud de la pila
 {
     return longitud;
 }
+
+void Pila::vaciarPila() {
+    while (!estaVacia()) {
+        NodoPila* siguiente = ultimo->sig;  // Guarda el siguiente nodo antes de eliminar el actual
+        delete ultimo;  // Libera la memoria del nodo actual
+        ultimo = siguiente;  // Establece el siguiente nodo como la nueva cima
+        longitud--;
+    }
+}
+
+

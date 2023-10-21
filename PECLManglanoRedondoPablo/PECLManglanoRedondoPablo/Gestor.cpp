@@ -1,3 +1,4 @@
+
 #include "Gestor.hpp"
 
 Gestor::Gestor()
@@ -10,7 +11,7 @@ Gestor::~Gestor()
 
 
 // Creamos la pila
-Pila pilaPedidos;
+Pila* pilaPedidos = new Pila();
 
 // Creamos dos colas para los pedidos estándar.
 Cola estacionA;
@@ -26,7 +27,7 @@ Cola estacionD;
 // Metodos para visualizar resultados
 
 int Gestor::PedidosEnPila() const {
-    return pilaPedidos.getLongitud();
+    return pilaPedidos->getLongitud();
 }
 
 int Gestor::PedidosEnSalaA() const {
@@ -62,7 +63,7 @@ void Gestor::generar12Pedidos() const {
 
     for (int i = 0; i < pedidosAGenerar; i++) {
         // Verificar si ya se han generado 48 pedidos
-        if (pilaPedidos.getLongitud() >= maxPedidos) {
+        if (pilaPedidos->getLongitud() >= maxPedidos) {
             std::cout << "¡Se alcanzo el limite maximo de 48 pedidos!" << std::endl;
             break;  // Salir del bucle si se alcanzó el límite máximo
         }
@@ -73,12 +74,31 @@ void Gestor::generar12Pedidos() const {
         bool urgente = rand() % 2 == 0;
 
         Pedido pedido(idPedido, numeroSeguimiento, dniCliente, urgente);
-        pilaPedidos.insertar(pedido);
+        pilaPedidos->insertar(pedido);
     }
 }
 
 // Opción B. Mostramos todos los pedidos almacenados en la pila.
 void Gestor::muestraPedidos() const {
-    pilaPedidos.mostrar();
+    pilaPedidos->mostrar();
 }
 
+// Opción C. Borrar los pedidos almacenados en A.
+void Gestor::borrarPedidosPila() const {
+    pilaPedidos->vaciarPila();
+  }
+  
+// Opción D. Extraer de la pila y almacenar en las colas en función del pedido
+
+void Gestor::encolarPedidos() const {
+    Pedido pedido = pilaPedidos->extraer();
+    if (pedido.urgencia()) {
+        estacionC.insertar(pedido);
+        /*o
+        estacionD.insertar(pedido);*/
+    } else {
+        estacionA.insertar(pedido);
+        /*o
+        estacionB.insertar(pedido);*/
+    }
+}

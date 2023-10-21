@@ -48,10 +48,10 @@ int main(int argc, char** argv) {
       gestor.muestraPedidos();
       break;
     case 'C':
-      //gestor.borrarPedidosPila();
+      gestor.borrarPedidosPila();
       break;
     case 'D':
-      //gestor.encolarPedidos();
+      gestor.encolarPedidos();
       break;
     case 'E':
       //gestor.muestraPedidosSalasAyB();

@@ -13,11 +13,12 @@ public:
     Pila(); // Constructor por defecto
     ~Pila();
     void insertar(const Pedido& pedido);
-    int extraer();
+    Pedido extraer();
     int cima();
     void mostrar();
     int getLongitud();
     bool estaVacia();  
+    void vaciarPila();
 
 private:
     NodoPila* ultimo;

@@ -18,6 +18,8 @@ public:
     
     void generar12Pedidos() const;
     void muestraPedidos() const;
+    void borrarPedidosPila() const;
+    void encolarPedidos() const;
     
 private:
 
