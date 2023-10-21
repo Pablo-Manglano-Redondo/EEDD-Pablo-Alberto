@@ -1,4 +1,3 @@
-
 #include "Gestor.hpp"
 
 Gestor::Gestor()
@@ -14,13 +13,18 @@ Gestor::~Gestor()
 Pila* pilaPedidos = new Pila();
 
 // Creamos dos colas para los pedidos estándar.
-Cola estacionA;
-Cola estacionB;
+Cola* estacionA = new Cola();
+Cola* estacionB = new Cola();
 
 // Creamos dos colas para los pedidos urgentes.
-Cola estacionC;
-Cola estacionD;
+Cola* estacionC = new Cola();
+Cola* estacionD = new Cola();
 
+// Creamos una lista para los pedidos estándar.
+Lista* listaEstandar = new Lista();
+
+//Creamos una lista para los pedidos urgentes.
+Lista* listaUrgente = new Lista();
 
 // ------------------------------------------------
 
@@ -31,28 +35,28 @@ int Gestor::PedidosEnPila() const {
 }
 
 int Gestor::PedidosEnSalaA() const {
-    return estacionA.getLongitud();
+    return estacionA->getLongitud();
 }
 
 int Gestor::PedidosEnSalaB() const {
-    return estacionB.getLongitud();
+    return estacionB->getLongitud();
 }
 
 int Gestor::PedidosEnSalaC() const {
-    return estacionC.getLongitud();
+    return estacionC->getLongitud();
 }
 
 int Gestor::PedidosEnSalaD() const {
-    return estacionD.getLongitud();
+    return estacionD->getLongitud();
 }
 
-/*int Gestor::PedidosEnListaEstandar() const {
-    return listaEstandar.size();
+int Gestor::PedidosEnListaEstandar() const {
+    return listaEstandar->getLongitud();
 }
 
 int Gestor::PedidosEnListaUrgentes() const {
-    return listaUrgentes.size();
-}*/
+    return listaEstandar->getLongitud();
+}
 
 // ------------------------------------------------
  
@@ -89,24 +93,76 @@ void Gestor::borrarPedidosPila() const {
   }
   
 // Opción D. Extraer de la pila y almacenar en las colas en función del pedido.
-
 void Gestor::encolarPedidos() const {
     Pedido pedido = pilaPedidos->extraer();
     if (pedido.urgencia()) {
-        estacionC.insertar(pedido);
-        /*o
-        estacionD.insertar(pedido);*/
+        if (estacionC->getLongitud() <= estacionD->getLongitud()) {
+            estacionC->insertar(pedido);
+        } else {
+            estacionD->insertar(pedido);
+        }
     } else {
-        estacionA.insertar(pedido);
-        /*o
-        estacionB.insertar(pedido);*/
+        if (estacionA->getLongitud() <= estacionB->getLongitud()) {
+            estacionA->insertar(pedido);
+        } else {
+            estacionB->insertar(pedido);
+        }
     }
 }
 
-// Opción G. Borrar los pedidos almacenados en D.
+// Opción E. Mostrar los pedidos en las estaciones A y B.
+void Gestor::muestraPedidosSalasAyB() const {
+    estacionA->mostrar();
+    estacionB->mostrar();
+}
+
+// Opción F. Mostrar los pedidos en las estaciones C y D.
+void Gestor::muestraPedidosSalasCyD() const {
+    estacionC->mostrar();
+    estacionD->mostrar();
+}
+
+// Opción G. Borrar los pedidos almacenados en las colas.
 void Gestor::borrarPedidosColas() const {
-    estacionA.vaciarCola();
-    estacionB.vaciarCola();
-    estacionC.vaciarCola();
-    estacionD.vaciarCola();
-  }
+    estacionA->vaciarCola();
+    estacionB->vaciarCola();
+    estacionC->vaciarCola();
+    estacionD->vaciarCola();
+}
+
+// Opción H. Extraer los pedidos de las colas y meterlos ordenados en lista estandar/urgente.
+
+
+// Opción I. Mostrar los pedidos en la lista estandar.
+void Gestor::muestraPedidosEstandar() const {
+    listaEstandar->mostrar();
+}
+
+// Opción J. Mostrar los pedidos en la lista urgente.
+void Gestor::muestraPedidosUrgentes() const {
+    listaUrgente->mostrar();
+}
+
+// Opción K. Buscar el pedido estándar de mayor prioridad y el pedido urgente de menor prioridad.
+
+
+// Opción L. Reiniciar el programa.
+void Gestor::reiniciar() {
+    // Liberar memoria de las estructuras de datos existentes
+    delete pilaPedidos;
+    delete estacionA;
+    delete estacionB;
+    delete estacionC;
+    delete estacionD;
+    delete listaEstandar;
+    delete listaUrgente;
+
+    // Crear nuevas instancias de las estructuras de datos
+    pilaPedidos = new Pila();
+    estacionA = new Cola();
+    estacionB = new Cola();
+    estacionC = new Cola();
+    estacionD = new Cola();
+    listaEstandar = new Lista();
+    listaUrgente = new Lista();
+}

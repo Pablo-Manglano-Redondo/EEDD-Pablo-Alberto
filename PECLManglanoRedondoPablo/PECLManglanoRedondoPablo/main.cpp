@@ -15,7 +15,7 @@ int main(int argc, char** argv) {
          << "\tSala B-> " << gestor.PedidosEnSalaB() << "\tSala C-> " << gestor.PedidosEnSalaC()
          << "\tSala D-> " << gestor.PedidosEnSalaD()
          << " \n\tPedidos en las listas:\n \t\tEstandar-> "
-         << /*gestor.PedidosEnListaEstandar()*/"implementar" << "\tUrgentes-> " << /*gestor.PedidosEnListaUrgentes()*/"implementar"
+         << gestor.PedidosEnListaEstandar()<< "\tUrgentes-> " << gestor.PedidosEnListaUrgentes()
          << "\n\t----------------------------------------------------------------------\n\n";
 
     std::cout << "\tA. Generar 12 Pedidos de forma aleatoria y almacenarlos en la "
@@ -54,13 +54,13 @@ int main(int argc, char** argv) {
       gestor.encolarPedidos();
       break;
     case 'E':
-      //gestor.muestraPedidosSalasAyB();
+      gestor.muestraPedidosSalasAyB();
       break;
     case 'F':
-      //gestor.muestraPedidosSalasCyD();
+      gestor.muestraPedidosSalasCyD();
       break;
     case 'G':
-      //gestor.borrarPedidosColas();
+      gestor.borrarPedidosColas();
       break;
     case 'H':
       //gestor.enlistarPedidos();
@@ -74,10 +74,10 @@ int main(int argc, char** argv) {
     case 'K':
       //gestor.buscarPedidos();
       break;
-    //case 'L':
-      //gestor.reiniciar();
+    case 'L':
+      gestor.reiniciar();
       break;
-    //case 'M':
+    case 'M':
         //...;
         break;
     //case 'N':

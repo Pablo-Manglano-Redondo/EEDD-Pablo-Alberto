@@ -3,6 +3,7 @@
 
 #include "Cola.hpp"
 #include "Pila.hpp"
+#include "Lista.hpp"
 
 class Gestor
 {
@@ -15,12 +16,19 @@ public:
     int PedidosEnSalaB() const;
     int PedidosEnSalaC() const;
     int PedidosEnSalaD() const;
+    int PedidosEnListaEstandar() const;
+    int PedidosEnListaUrgentes() const;
     
     void generar12Pedidos() const;
     void muestraPedidos() const;
     void borrarPedidosPila() const;
     void encolarPedidos() const;
     void borrarPedidosColas() const;
+    void muestraPedidosSalasAyB() const;
+    void muestraPedidosSalasCyD() const;
+    void muestraPedidosEstandar() const;
+    void muestraPedidosUrgentes() const;
+    void reiniciar();
     
 private:
 
