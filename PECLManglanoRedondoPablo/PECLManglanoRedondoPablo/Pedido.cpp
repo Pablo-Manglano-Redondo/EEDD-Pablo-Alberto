@@ -1,16 +1,20 @@
 #include "Pedido.hpp"
 
-Pedido::Pedido(int id_pedido, int num_seguimiento, int dni_cliente, bool urgencia)
-    : id_pedido_(id_pedido), num_seguimiento_(num_seguimiento), dni_cliente_(dni_cliente), urgencia_(urgencia) {
+Pedido::Pedido(int idPedido, int numSeguimiento, std::string dniCliente, bool urgencia)
+    : idPedido_(idPedido), numSeguimiento_(numSeguimiento), dniCliente_(dniCliente), urgencia_(urgencia) {
     // Inicializamos los miembros en la lista de inicialización del constructor
 }
 
-int Pedido::id_pedido() const {
-    return id_pedido_;
+int Pedido::idPedido() const {
+    return idPedido_;
 }
 
-int Pedido::dni_cliente() const {
-    return dni_cliente_;
+int Pedido::numSeguimiento() const {
+    return numSeguimiento_;
+}
+
+std::string Pedido::dniCliente() const {
+    return dniCliente_;
 }
 
 bool Pedido::urgencia() const {
@@ -18,7 +22,7 @@ bool Pedido::urgencia() const {
 }
 
 std::ostream& operator<<(std::ostream& os, const Pedido& pedido) {
-    os << "Pedido: " << pedido.id_pedido() << ", " << pedido.dni_cliente() << ", "
+    os << "Pedido: " << pedido.idPedido() << ", " << pedido.numSeguimiento() << ", " << pedido.dniCliente() << ", "
        << (pedido.urgencia() ? "urgente" : "estándar");
     return os;
 }

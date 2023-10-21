@@ -9,31 +9,31 @@ int main(int argc, char** argv) {
 
   do {
 
-    /*cout << "\n\t------------------------------------------------------------------------\n";
-    cout << "\tPedidos en la pila -> " << gestor.PedidosEnPila()
+    std::cout << "\n\t------------------------------------------------------------------------\n";
+    std::cout << "\tPedidos en la pila -> " << gestor.PedidosEnPila()
          << "\n\tPedidos en las colas:\n \t\tSala A-> " << gestor.PedidosEnSalaA()
          << "\tSala B-> " << gestor.PedidosEnSalaB() << "\tSala C-> " << gestor.PedidosEnSalaC()
          << "\tSala D-> " << gestor.PedidosEnSalaD()
          << " \n\tPedidos en las listas:\n \t\tEstandar-> "
-         << gestor.PedidosEnListaEstandar() << "\tUrgentes-> " << gestor.PedidosEnListaUrgentes()
+         << /*gestor.PedidosEnListaEstandar()*/"implementar" << "\tUrgentes-> " << /*gestor.PedidosEnListaUrgentes()*/"implementar"
          << "\n\t----------------------------------------------------------------------\n\n";
 
-    cout << "\tA. Generar 12 Pedidos de forma aleatoria y almacenarlos en la "
+    std::cout << "\tA. Generar 12 Pedidos de forma aleatoria y almacenarlos en la "
             "Pila.\n";
-    cout << "\tB. Consultar todos los Pedidos generados en la Pila (pendientes "
+    std::cout << "\tB. Consultar todos los Pedidos generados en la Pila (pendientes "
             "de entrar en las salas).\n";
-    cout << "\tC. Borrar los Pedidos generados en la pila.\n";
-    cout << "\tD. Simular llegada de los Pedidos en las colas.\n";
-    cout << "\tE. Consultar los Pedidos de las salas A y B.\n";
-    cout << "\tF. Consultar los Pedidos de las salas C y D.\n";
-    cout << "\tG. Borrar los todos los Pedidos de las salas.\n";
-    cout << "\tH. Simular la entrada de los Pedidos a las listas.\n";
-    cout << "\tI. Mostrar los Pedidos que hay en la Lista Estándar.\n";
-    cout << "\tJ. Mostrar los Pedidos que hay en la Lista Urgente.\n";
-    cout << "\tK. Buscar en las listas y mostrar los siguientes 2 pedidos:\n";
-    cout << "\t\t* El pedido estándar de mayor prioridad.\n";
-    cout << "\t\t* El pedido urgente de menor prioridad.\n";
-    cout << "\tL. Reiniciar el programa.\n\n";*/
+    std::cout << "\tC. Borrar los Pedidos generados en la pila.\n";
+    std::cout << "\tD. Simular llegada de los Pedidos en las colas.\n";
+    std::cout << "\tE. Consultar los Pedidos de las salas A y B.\n";
+    std::cout << "\tF. Consultar los Pedidos de las salas C y D.\n";
+    std::cout << "\tG. Borrar los todos los Pedidos de las salas.\n";
+    std::cout << "\tH. Simular la entrada de los Pedidos a las listas.\n";
+    std::cout << "\tI. Mostrar los Pedidos que hay en la Lista Estándar.\n";
+    std::cout << "\tJ. Mostrar los Pedidos que hay en la Lista Urgente.\n";
+    std::cout << "\tK. Buscar en las listas y mostrar los siguientes 2 pedidos:\n";
+    std::cout << "\t\t* El pedido estandar de mayor prioridad.\n";
+    std::cout << "\t\t* El pedido urgente de menor prioridad.\n";
+    std::cout << "\tL. Reiniciar el programa.\n\n";
 
     std::cout << "\tIndique la opcion deseada: ";
     std::cin >> opcion;
@@ -42,11 +42,10 @@ int main(int argc, char** argv) {
     switch(opcion) {
 
     case 'A':
-      //gestor.generar12Pedidos();
-      gestor.insertarPedidoCola();
+      gestor.generar12Pedidos();
       break;
     case 'B':
-      //gestor.muestraPedidos();
+      gestor.muestraPedidos();
       break;
     case 'C':
       //gestor.borrarPedidosPila();

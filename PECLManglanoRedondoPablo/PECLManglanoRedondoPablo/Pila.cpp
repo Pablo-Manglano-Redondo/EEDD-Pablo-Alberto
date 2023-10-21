@@ -26,7 +26,7 @@ int Pila::extraer() // Extrae el elemento superior de la pila
     if (estaVacia()) {
         throw std::out_of_range("La pila está vacía");
     }
-    int v = ultimo->pedido.id_pedido(); // Reemplaza con el método correcto o miembro de Pedido
+    int v = ultimo->pedido.idPedido(); // Reemplaza con el método correcto o miembro de Pedido
     NodoPila* aux = ultimo;
     ultimo = ultimo->sig;
     delete aux;
@@ -39,19 +39,23 @@ int Pila::cima() // Devuelve el elemento superior de la pila
     if (estaVacia()) {
         throw std::out_of_range("La pila está vacía");
     }
-    return ultimo->pedido.id_pedido(); // Reemplaza con el método correcto o miembro de Pedido
+    return ultimo->pedido.idPedido(); // Reemplaza con el método correcto o miembro de Pedido
 }
 
 void Pila::mostrar() // Muestra la pila
 {
     if (estaVacia()) {
-        std::cout << "La pila está vacía" << std::endl;
+        std::cout << "La pila estA vacia" << std::endl;
         return;
     }
     NodoPila* aux = ultimo;
     while (aux != nullptr) {
         // Accede a los miembros de Pedido a través del objeto pedido en NodoPila
-        std::cout << aux->pedido.id_pedido() << " ";
+        std::cout << "ID Pedido: " << aux->pedido.idPedido() << ", "
+          << "Numero de Seguimiento: " << aux->pedido.numSeguimiento() << ", "
+          << "DNI Cliente: " << aux->pedido.dniCliente() << ", "
+          << "Urgencia: " << (aux->pedido.urgencia() ? 1 : 0) << std::endl;
+
         aux = aux->sig;
     }
     std::cout << std::endl;
