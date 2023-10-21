@@ -60,3 +60,12 @@ int Cola::getLongitud() // Devuelve la longitud de la cola
 {
     return longitud;
 }
+
+void Cola::vaciarCola() {
+    while (!estaVacia()) {
+        NodoCola* siguiente = ultimo->sig;  // Guarda el siguiente nodo antes de eliminar el actual
+        delete ultimo;  // Libera la memoria del nodo actual
+        ultimo = siguiente;  // Establece el siguiente nodo como la nueva cima
+        longitud--;
+    }
+}

@@ -20,6 +20,7 @@ public:
     void muestraPedidos() const;
     void borrarPedidosPila() const;
     void encolarPedidos() const;
+    void borrarPedidosColas() const;
     
 private:
 

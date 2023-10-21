@@ -88,7 +88,7 @@ void Gestor::borrarPedidosPila() const {
     pilaPedidos->vaciarPila();
   }
   
-// Opción D. Extraer de la pila y almacenar en las colas en función del pedido
+// Opción D. Extraer de la pila y almacenar en las colas en función del pedido.
 
 void Gestor::encolarPedidos() const {
     Pedido pedido = pilaPedidos->extraer();
@@ -102,3 +102,11 @@ void Gestor::encolarPedidos() const {
         estacionB.insertar(pedido);*/
     }
 }
+
+// Opción G. Borrar los pedidos almacenados en D.
+void Gestor::borrarPedidosColas() const {
+    estacionA.vaciarCola();
+    estacionB.vaciarCola();
+    estacionC.vaciarCola();
+    estacionD.vaciarCola();
+  }

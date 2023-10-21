@@ -3,6 +3,7 @@
 
 #include "NodoCola.hpp"
 
+
 class Cola {
 public:
     ~Cola();
@@ -11,6 +12,7 @@ public:
     Pedido cima();
     void mostrar();
     int getLongitud();
+    void vaciarCola();
 
 private:
     NodoCola* primero;
