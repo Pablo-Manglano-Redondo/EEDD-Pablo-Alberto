@@ -136,36 +136,45 @@ void Gestor::borrarPedidosColas() const {
 
 // Opción H. Extraer los pedidos de las colas y meterlos ordenados en lista estandar/urgente.
 void Gestor::enlistarPedidos() const {
+    int numeroSeguimientoEst = 1;
+    int numeroSeguimientoUrg = 501;
+
     while (!estacionA->estaVacia()) {
         Pedido pedido = estacionA->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;        
-        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoEst, pedido.dniCliente(), pedido.urgencia(), prioridad);
         listaEstandar->insertar(nuevoPedido);
+        numeroSeguimientoEst++;
     }
 
     while (!estacionB->estaVacia()) {
         Pedido pedido = estacionB->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;        
-        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoEst, pedido.dniCliente(), pedido.urgencia(), prioridad);
         listaEstandar->insertar(nuevoPedido);
+        numeroSeguimientoEst++;
     }
 
     while (!estacionC->estaVacia()) {
         Pedido pedido = estacionC->extraer();
         int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
-        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoUrg, pedido.dniCliente(), pedido.urgencia(), prioridad);
         listaUrgente->insertar(nuevoPedido);
+        numeroSeguimientoUrg++;
     }
 
     while (!estacionD->estaVacia()) {
         Pedido pedido = estacionD->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;        
-        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoUrg, pedido.dniCliente(), pedido.urgencia(), prioridad);
         listaUrgente->insertar(nuevoPedido);
+        numeroSeguimientoUrg++;
     }
+
     listaEstandar->ordenarPorID();
     listaUrgente->ordenarPorID();
 }
+
 
 // Opción I. Mostrar los pedidos en la lista estandar.
 void Gestor::muestraPedidosEstandar() const {
@@ -214,14 +223,14 @@ void Gestor::buscarPedidos() const {
     // Mostrar los resultados
     if (encontradoEstandar) {
         std::cout << "Pedido estandar de mayor prioridad:" << std::endl;
-        std::cout << "ID Pedido: " << pedidoEstandarMaxPrioridad.idPedido() << ", Prioridad: " << pedidoEstandarMaxPrioridad.getPrioridad() << std::endl;
+        std::cout << "ID Pedido: " << pedidoEstandarMaxPrioridad.idPedido() << ", Prioridad: " << pedidoEstandarMaxPrioridad.getPrioridad() << ", Numero de seguimiento: " << pedidoEstandarMaxPrioridad.numSeguimiento() << std::endl;
     } else {
         std::cout << "No hay pedidos estandar en la lista." << std::endl;
     }
 
     if (encontradoUrgente) {
         std::cout << "Pedido urgente de menor prioridad:" << std::endl;
-        std::cout << "ID Pedido: " << pedidoUrgenteMinPrioridad.idPedido() << ", Prioridad: " << pedidoUrgenteMinPrioridad.getPrioridad() << std::endl;
+        std::cout << "ID Pedido: " << pedidoUrgenteMinPrioridad.idPedido() << ", Prioridad: " << pedidoUrgenteMinPrioridad.getPrioridad() << ", Numero de seguimiento: " << pedidoUrgenteMinPrioridad.numSeguimiento() <<  std::endl;
     } else {
         std::cout << "No hay pedidos urgentes en la lista." << std::endl;
     }

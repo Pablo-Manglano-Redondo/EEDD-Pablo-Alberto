@@ -57,12 +57,12 @@ void Lista::ordenarPorID() {
     cabeza = sorted;
 }
 
-
 void Lista::mostrar() const {
     NodoLista* temp = cabeza;
     while (temp) {
         std::cout << "ID Pedido: " << temp->pedido.idPedido() << ", "
-                  << "Prioridad: " << temp->pedido.prioridad() << std::endl;
+                  << "Prioridad: " << temp->pedido.prioridad() << ", "
+                  << "Numero de seguimiento: " << temp->pedido.numSeguimiento() << std::endl;
         temp = temp->siguiente;
     }
     std::cout << std::endl;
