@@ -26,8 +26,10 @@ public:
     void borrarPedidosColas() const;
     void muestraPedidosSalasAyB() const;
     void muestraPedidosSalasCyD() const;
+    void enlistarPedidos() const;
     void muestraPedidosEstandar() const;
     void muestraPedidosUrgentes() const;
+    void buscarPedidos() const;
     void reiniciar();
     
 private:

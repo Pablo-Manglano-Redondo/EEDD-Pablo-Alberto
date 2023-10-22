@@ -4,14 +4,15 @@
 #include "NodoLista.hpp"
 
 class Lista {
-private:
-    NodoLista* cabeza;
 public:
     Lista();
     ~Lista();
     void insertar(const Pedido& nuevoPedido);
     void mostrar() const;
     int getLongitud() const;
+    bool estaVacia() const;
+    NodoLista* getCabeza() const;
+    NodoLista* cabeza;
 };
 
 #endif // LISTA_HPP

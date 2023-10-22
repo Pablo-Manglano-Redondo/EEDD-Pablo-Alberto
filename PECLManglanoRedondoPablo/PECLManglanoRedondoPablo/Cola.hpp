@@ -3,8 +3,8 @@
 
 #include "NodoCola.hpp"
 
-
-class Cola {
+class Cola
+{
 public:
     ~Cola();
     void insertar(const Pedido& elemento);
@@ -13,15 +13,12 @@ public:
     void mostrar();
     int getLongitud();
     void vaciarCola();
+    bool estaVacia() const { return primero == nullptr; }
 
 private:
     NodoCola* primero;
     NodoCola* ultimo;
     int longitud;
-
-    bool estaVacia() const {
-        return primero == nullptr;
-    }
 };
 
 #endif // COLA_HPP

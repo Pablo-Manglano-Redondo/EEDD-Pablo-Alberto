@@ -55,7 +55,7 @@ int Gestor::PedidosEnListaEstandar() const {
 }
 
 int Gestor::PedidosEnListaUrgentes() const {
-    return listaEstandar->getLongitud();
+    return listaUrgente->getLongitud();
 }
 
 // ------------------------------------------------
@@ -131,7 +131,33 @@ void Gestor::borrarPedidosColas() const {
 }
 
 // Opción H. Extraer los pedidos de las colas y meterlos ordenados en lista estandar/urgente.
+void Gestor::enlistarPedidos() const {
+    while (!estacionA->estaVacia()) {
+        Pedido pedido = estacionA->extraer();
+        listaEstandar->insertar(pedido);
+    }
 
+    while (!estacionB->estaVacia()) {
+        Pedido pedido = estacionB->extraer();
+        listaEstandar->insertar(pedido);
+    }
+
+    while (!estacionC->estaVacia()) {
+        Pedido pedido = estacionC->extraer();
+        listaUrgente->insertar(pedido);
+    }
+
+    while (!estacionD->estaVacia()) {
+        Pedido pedido = estacionD->extraer();
+        listaUrgente->insertar(pedido);
+    }
+
+    std::cout << "Pedidos en Lista Estándar:" << std::endl;
+    listaEstandar->mostrar();
+    
+    std::cout << "Pedidos en Lista Urgente:" << std::endl;
+    listaUrgente->mostrar();
+}
 
 // Opción I. Mostrar los pedidos en la lista estandar.
 void Gestor::muestraPedidosEstandar() const {
@@ -144,7 +170,54 @@ void Gestor::muestraPedidosUrgentes() const {
 }
 
 // Opción K. Buscar el pedido estándar de mayor prioridad y el pedido urgente de menor prioridad.
+void Gestor::buscarPedidos() const {
+    if (listaEstandar->estaVacia() && listaUrgente->estaVacia()) {
+        std::cout << "Las listas están vacías." << std::endl;
+        return;
+    }
 
+    NodoLista* tempEstandar = listaEstandar->getCabeza();
+    NodoLista* tempUrgente = listaUrgente->getCabeza();
+
+    Pedido pedidoEstandarMaxPrioridad(0,0,"prueba",0);
+    Pedido pedidoUrgenteMinPrioridad(0,0,"prueba",0);
+
+    bool encontradoEstandar = false;
+    bool encontradoUrgente = false;
+
+    // Buscar el pedido estándar de mayor prioridad
+    while (tempEstandar) {
+        if (!encontradoEstandar || tempEstandar->pedido.urgencia() > pedidoEstandarMaxPrioridad.urgencia()) {
+            pedidoEstandarMaxPrioridad = tempEstandar->pedido;
+            encontradoEstandar = true;
+        }
+        tempEstandar = tempEstandar->siguiente;
+    }
+
+    // Buscar el pedido urgente de menor prioridad
+    while (tempUrgente) {
+        if (!encontradoUrgente || tempUrgente->pedido.urgencia() < pedidoUrgenteMinPrioridad.urgencia()) {
+            pedidoUrgenteMinPrioridad = tempUrgente->pedido;
+            encontradoUrgente = true;
+        }
+        tempUrgente = tempUrgente->siguiente;
+    }
+
+    // Mostrar los resultados
+    if (encontradoEstandar) {
+        std::cout << "Pedido estándar de mayor prioridad:" << std::endl;
+        std::cout << "ID Pedido: " << pedidoEstandarMaxPrioridad.idPedido() << ", Urgencia: " << pedidoEstandarMaxPrioridad.urgencia() << std::endl;
+    } else {
+        std::cout << "No hay pedidos estándar en la lista." << std::endl;
+    }
+
+    if (encontradoUrgente) {
+        std::cout << "Pedido urgente de menor prioridad:" << std::endl;
+        std::cout << "ID Pedido: " << pedidoUrgenteMinPrioridad.idPedido() << ", Urgencia: " << pedidoUrgenteMinPrioridad.urgencia() << std::endl;
+    } else {
+        std::cout << "No hay pedidos urgentes en la lista." << std::endl;
+    }
+}
 
 // Opción L. Reiniciar el programa.
 void Gestor::reiniciar() {

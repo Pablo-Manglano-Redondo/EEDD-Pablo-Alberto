@@ -44,3 +44,11 @@ int Lista::getLongitud() const {
     }
     return longitud;
 }
+
+bool Lista::estaVacia() const {
+    return cabeza == nullptr;
+}
+
+NodoLista* Lista::getCabeza() const {
+    return cabeza;
+}
