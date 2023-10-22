@@ -8,6 +8,7 @@ Gestor::~Gestor()
 {
 }
 
+// ------------------------------------------------
 
 // Creamos la pila
 Pila* pilaPedidos = new Pila();
@@ -94,21 +95,24 @@ void Gestor::borrarPedidosPila() const {
   
 // Opción D. Extraer de la pila y almacenar en las colas en función del pedido.
 void Gestor::encolarPedidos() const {
-    Pedido pedido = pilaPedidos->extraer();
-    if (pedido.urgencia()) {
-        if (estacionC->getLongitud() <= estacionD->getLongitud()) {
-            estacionC->insertar(pedido);
+    while (!pilaPedidos->estaVacia()) {
+        Pedido pedido = pilaPedidos->extraer();
+        if (pedido.urgencia()) {
+            if (estacionC->getLongitud() <= estacionD->getLongitud()) {
+                estacionC->insertar(pedido);
+            } else {
+                estacionD->insertar(pedido);
+            }
         } else {
-            estacionD->insertar(pedido);
-        }
-    } else {
-        if (estacionA->getLongitud() <= estacionB->getLongitud()) {
-            estacionA->insertar(pedido);
-        } else {
-            estacionB->insertar(pedido);
+            if (estacionA->getLongitud() <= estacionB->getLongitud()) {
+                estacionA->insertar(pedido);
+            } else {
+                estacionB->insertar(pedido);
+            }
         }
     }
 }
+
 
 // Opción E. Mostrar los pedidos en las estaciones A y B.
 void Gestor::muestraPedidosSalasAyB() const {
@@ -134,29 +138,33 @@ void Gestor::borrarPedidosColas() const {
 void Gestor::enlistarPedidos() const {
     while (!estacionA->estaVacia()) {
         Pedido pedido = estacionA->extraer();
-        listaEstandar->insertar(pedido);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;        
+        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        listaEstandar->insertar(nuevoPedido);
     }
 
     while (!estacionB->estaVacia()) {
         Pedido pedido = estacionB->extraer();
-        listaEstandar->insertar(pedido);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;        
+        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        listaEstandar->insertar(nuevoPedido);
     }
 
     while (!estacionC->estaVacia()) {
         Pedido pedido = estacionC->extraer();
-        listaUrgente->insertar(pedido);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        listaUrgente->insertar(nuevoPedido);
     }
 
     while (!estacionD->estaVacia()) {
         Pedido pedido = estacionD->extraer();
-        listaUrgente->insertar(pedido);
+        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;        
+        Pedido nuevoPedido(pedido.idPedido(), pedido.numSeguimiento(), pedido.dniCliente(), pedido.urgencia(), prioridad);
+        listaUrgente->insertar(nuevoPedido);
     }
-
-    std::cout << "Pedidos en Lista Estándar:" << std::endl;
-    listaEstandar->mostrar();
-    
-    std::cout << "Pedidos en Lista Urgente:" << std::endl;
-    listaUrgente->mostrar();
+    listaEstandar->ordenarPorID();
+    listaUrgente->ordenarPorID();
 }
 
 // Opción I. Mostrar los pedidos en la lista estandar.
@@ -172,22 +180,22 @@ void Gestor::muestraPedidosUrgentes() const {
 // Opción K. Buscar el pedido estándar de mayor prioridad y el pedido urgente de menor prioridad.
 void Gestor::buscarPedidos() const {
     if (listaEstandar->estaVacia() && listaUrgente->estaVacia()) {
-        std::cout << "Las listas están vacías." << std::endl;
+        std::cout << "Las listas estan vacias." << std::endl;
         return;
     }
 
     NodoLista* tempEstandar = listaEstandar->getCabeza();
     NodoLista* tempUrgente = listaUrgente->getCabeza();
 
-    Pedido pedidoEstandarMaxPrioridad(0,0,"prueba",0);
-    Pedido pedidoUrgenteMinPrioridad(0,0,"prueba",0);
+    Pedido pedidoEstandarMaxPrioridad(0, 0, "prueba", 0, 49);
+    Pedido pedidoUrgenteMinPrioridad(0, 0, "prueba", 0, 51);
 
     bool encontradoEstandar = false;
     bool encontradoUrgente = false;
 
     // Buscar el pedido estándar de mayor prioridad
     while (tempEstandar) {
-        if (!encontradoEstandar || tempEstandar->pedido.urgencia() > pedidoEstandarMaxPrioridad.urgencia()) {
+        if (!encontradoEstandar || tempEstandar->pedido.getPrioridad() > pedidoEstandarMaxPrioridad.getPrioridad()) {
             pedidoEstandarMaxPrioridad = tempEstandar->pedido;
             encontradoEstandar = true;
         }
@@ -196,7 +204,7 @@ void Gestor::buscarPedidos() const {
 
     // Buscar el pedido urgente de menor prioridad
     while (tempUrgente) {
-        if (!encontradoUrgente || tempUrgente->pedido.urgencia() < pedidoUrgenteMinPrioridad.urgencia()) {
+        if (!encontradoUrgente || tempUrgente->pedido.getPrioridad() < pedidoUrgenteMinPrioridad.getPrioridad()) {
             pedidoUrgenteMinPrioridad = tempUrgente->pedido;
             encontradoUrgente = true;
         }
@@ -205,19 +213,20 @@ void Gestor::buscarPedidos() const {
 
     // Mostrar los resultados
     if (encontradoEstandar) {
-        std::cout << "Pedido estándar de mayor prioridad:" << std::endl;
-        std::cout << "ID Pedido: " << pedidoEstandarMaxPrioridad.idPedido() << ", Urgencia: " << pedidoEstandarMaxPrioridad.urgencia() << std::endl;
+        std::cout << "Pedido estandar de mayor prioridad:" << std::endl;
+        std::cout << "ID Pedido: " << pedidoEstandarMaxPrioridad.idPedido() << ", Prioridad: " << pedidoEstandarMaxPrioridad.getPrioridad() << std::endl;
     } else {
-        std::cout << "No hay pedidos estándar en la lista." << std::endl;
+        std::cout << "No hay pedidos estandar en la lista." << std::endl;
     }
 
     if (encontradoUrgente) {
         std::cout << "Pedido urgente de menor prioridad:" << std::endl;
-        std::cout << "ID Pedido: " << pedidoUrgenteMinPrioridad.idPedido() << ", Urgencia: " << pedidoUrgenteMinPrioridad.urgencia() << std::endl;
+        std::cout << "ID Pedido: " << pedidoUrgenteMinPrioridad.idPedido() << ", Prioridad: " << pedidoUrgenteMinPrioridad.getPrioridad() << std::endl;
     } else {
         std::cout << "No hay pedidos urgentes en la lista." << std::endl;
     }
 }
+
 
 // Opción L. Reiniciar el programa.
 void Gestor::reiniciar() {

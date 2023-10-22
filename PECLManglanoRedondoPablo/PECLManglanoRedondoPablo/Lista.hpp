@@ -13,6 +13,7 @@ public:
     bool estaVacia() const;
     NodoLista* getCabeza() const;
     NodoLista* cabeza;
+    void ordenarPorID();
 };
 
 #endif // LISTA_HPP
