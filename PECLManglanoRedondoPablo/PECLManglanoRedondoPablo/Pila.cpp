@@ -53,7 +53,6 @@ void Pila::mostrar() // Muestra la pila
     while (aux != nullptr) {
         // Accede a los miembros de Pedido a través del objeto pedido en NodoPila
         std::cout << "ID Pedido: " << aux->pedido.idPedido() << ", "
-          << "Numero de Seguimiento: " << aux->pedido.numSeguimiento() << ", "
           << "DNI Cliente: " << aux->pedido.dniCliente() << ", "
           << "Urgencia: " << (aux->pedido.urgencia() ? 1 : 0) << std::endl;
 
