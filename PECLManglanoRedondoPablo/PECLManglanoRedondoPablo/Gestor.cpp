@@ -63,25 +63,33 @@ int Gestor::PedidosEnListaUrgentes() const {
  
 // Opción A. Generamos 12 pedidos y los almacenamos en la pila (maximo 48).
 void Gestor::generar12Pedidos() const {
-    const int maxPedidos = 48;
+    int totalPedidos = pilaPedidos->getLongitud() + estacionA->getLongitud() + estacionB->getLongitud() +
+                       estacionC->getLongitud() + estacionD->getLongitud() +
+                       listaEstandar->getLongitud() + listaUrgente->getLongitud();
+
+    const int limitePedidos = 48;
     const int pedidosAGenerar = 12;
 
     for (int i = 0; i < pedidosAGenerar; i++) {
         // Verificar si ya se han generado 48 pedidos
-        if (pilaPedidos->getLongitud() >= maxPedidos) {
-            std::cout << "¡Se alcanzo el limite maximo de 48 pedidos!" << std::endl;
-            break;  // Salir del bucle si se alcanzó el límite máximo
-        }
-
+        if (totalPedidos >= limitePedidos) {
+            std::cout << "¡No se puede generar un nuevo pedido! Hay " << totalPedidos << " pedidos en el sistema, que ya alcanza el límite máximo de 48." << std::endl;
+            }
+        else {
+            
         int idPedido = rand();
         int numeroSeguimiento = rand();
-        std::string dniCliente = "1234567890" + std::to_string(i);
+        std::string dniCliente = std::to_string(100000000 + std::rand() % 89999999) + "TRWAGMYFPDXBNJZSQVHLCKE"[std::rand() % 23];
         bool urgente = rand() % 2 == 0;
 
         Pedido pedido(idPedido, numeroSeguimiento, dniCliente, urgente);
         pilaPedidos->insertar(pedido);
+            
+        }
     }
+
 }
+
 
 // Opción B. Mostramos todos los pedidos almacenados en la pila.
 void Gestor::muestraPedidos() const {
@@ -95,7 +103,10 @@ void Gestor::borrarPedidosPila() const {
   
 // Opción D. Extraer de la pila y almacenar en las colas en función del pedido.
 void Gestor::encolarPedidos() const {
-    while (!pilaPedidos->estaVacia()) {
+    const int limitePedidos = 48;
+    int totalPedidos = estacionA->getLongitud() + estacionB->getLongitud() + estacionC->getLongitud() + estacionD->getLongitud();
+
+    while (!pilaPedidos->estaVacia() && totalPedidos < limitePedidos) {
         Pedido pedido = pilaPedidos->extraer();
         if (pedido.urgencia()) {
             if (estacionC->getLongitud() <= estacionD->getLongitud()) {
@@ -110,8 +121,15 @@ void Gestor::encolarPedidos() const {
                 estacionB->insertar(pedido);
             }
         }
+
+        totalPedidos = estacionA->getLongitud() + estacionB->getLongitud() + estacionC->getLongitud() + estacionD->getLongitud();
+    }
+
+    if (totalPedidos >= limitePedidos) {
+        std::cout << "¡Se alcanzó el límite máximo de 48 pedidos entre todas las colas!" << std::endl;
     }
 }
+
 
 
 // Opción E. Mostrar los pedidos en las estaciones A y B.
@@ -138,37 +156,48 @@ void Gestor::borrarPedidosColas() const {
 void Gestor::enlistarPedidos() const {
     int numeroSeguimientoEst = 1;
     int numeroSeguimientoUrg = 501;
+    int totalPedidos = listaEstandar->getLongitud() + listaUrgente->getLongitud();
 
-    while (!estacionA->estaVacia()) {
-        Pedido pedido = estacionA->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
-        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoEst, pedido.dniCliente(), pedido.urgencia(), prioridad);
-        listaEstandar->insertar(nuevoPedido);
-        numeroSeguimientoEst++;
+    while (totalPedidos < 48 && (!estacionA->estaVacia() || !estacionB->estaVacia() || !estacionC->estaVacia() || !estacionD->estaVacia())) {
+        if (!estacionA->estaVacia() && totalPedidos < 48) {
+            Pedido pedido = estacionA->extraer();
+            int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+            Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoEst, pedido.dniCliente(), pedido.urgencia(), prioridad);
+            listaEstandar->insertar(nuevoPedido);
+            numeroSeguimientoEst++;
+            totalPedidos++;
+        }
+
+        if (!estacionB->estaVacia() && totalPedidos < 48) {
+            Pedido pedido = estacionB->extraer();
+            int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+            Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoEst, pedido.dniCliente(), pedido.urgencia(), prioridad);
+            listaEstandar->insertar(nuevoPedido);
+            numeroSeguimientoEst++;
+            totalPedidos++;
+        }
+
+        if (!estacionC->estaVacia() && totalPedidos < 48) {
+            Pedido pedido = estacionC->extraer();
+            int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+            Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoUrg, pedido.dniCliente(), pedido.urgencia(), prioridad);
+            listaUrgente->insertar(nuevoPedido);
+            numeroSeguimientoUrg++;
+            totalPedidos++;
+        }
+
+        if (!estacionD->estaVacia() && totalPedidos < 48) {
+            Pedido pedido = estacionD->extraer();
+            int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
+            Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoUrg, pedido.dniCliente(), pedido.urgencia(), prioridad);
+            listaUrgente->insertar(nuevoPedido);
+            numeroSeguimientoUrg++;
+            totalPedidos++;
+        }
     }
 
-    while (!estacionB->estaVacia()) {
-        Pedido pedido = estacionB->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
-        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoEst, pedido.dniCliente(), pedido.urgencia(), prioridad);
-        listaEstandar->insertar(nuevoPedido);
-        numeroSeguimientoEst++;
-    }
-
-    while (!estacionC->estaVacia()) {
-        Pedido pedido = estacionC->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
-        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoUrg, pedido.dniCliente(), pedido.urgencia(), prioridad);
-        listaUrgente->insertar(nuevoPedido);
-        numeroSeguimientoUrg++;
-    }
-
-    while (!estacionD->estaVacia()) {
-        Pedido pedido = estacionD->extraer();
-        int prioridad = pedido.urgencia() ? (rand() % 49) + 51 : (rand() % 49) + 1;
-        Pedido nuevoPedido(pedido.idPedido(), numeroSeguimientoUrg, pedido.dniCliente(), pedido.urgencia(), prioridad);
-        listaUrgente->insertar(nuevoPedido);
-        numeroSeguimientoUrg++;
+    if (totalPedidos >= 48) {
+        std::cout << "¡Se alcanzó el límite máximo de 48 pedidos en total en las listas!" << std::endl;
     }
 
     listaEstandar->ordenarPorID();
